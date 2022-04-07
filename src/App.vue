@@ -1,7 +1,8 @@
 <template>
-  <h1 class="text-3xl font-bold underline">Hello World!</h1>
+  <h1 class="text-3xl text-brand-main">Hello World!</h1>
 </template>
 
 <script setup></script>
 
-<style></style>
+<style>
+</style>
