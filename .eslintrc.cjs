@@ -1,16 +1,24 @@
+/* eslint-env node */
+require("@rushstack/eslint-patch/modern-module-resolution");
+
 module.exports = {
-  extends: ["plugin:vue/vue3-essential", "prettier"],
-  rules: {
-    // override/add rules settings here, such as:
-    "vue/no-unused-vars": "error",
-    "comma-dangle": ["error", "always-multiline"],
+  "root": true,
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "eslint:recommended",
+    "@vue/eslint-config-prettier",
+  ],
+  "env": {
+    "vue/setup-compiler-macros": true,
   },
-  overrides: [
+  "overrides": [
     {
-      files: ["src/**/**/*.vue"],
-      rules: {
-        "vue/multi-word-component-names": 0,
-      },
+      "files": [
+        "cypress/integration/**.spec.{js,ts,jsx,tsx}",
+      ],
+      "extends": [
+        "plugin:cypress/recommended",
+      ],
     },
   ],
-};
+}
