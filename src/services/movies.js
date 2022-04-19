@@ -1,13 +1,9 @@
 export default (httpClient) => ({
-    getPopularMovie: async ({ api_key }) => {
-        const query = { api_key }
+  getPopularMovie: async () => {
+    const response = await httpClient.get("/3/movie/popular");
 
-        const response = await httpClient.get('/3/movie/popular', {
-            params: query,
-        })
-
-        return {
-            data: response.data,
-        }
-    },
-})
+    return {
+      data: response.data,
+    };
+  },
+});

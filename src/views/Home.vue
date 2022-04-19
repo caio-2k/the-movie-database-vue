@@ -27,9 +27,7 @@ const state = reactive({
 })
 
 const getMovies = async () => {
-    const { data } = await services.movies.getPopularMovie({
-        api_key: '7b92ce4b29c2f82ac344afe3aece56f1',
-    })
+    const { data } = await services.movies.getPopularMovie()
 
     state.popularMovies = data
     console.log(data);
