@@ -1,15 +1,9 @@
 <template>
-    <!-- component -->
     <div class="h-full bg-black flex p-36">
-
         <div class="grid grid-cols-6 gap-4">
-            <movie-card v-for="item in state.popularMovies.results" :key="item.id" 
-                :imageUrl="item.poster_path"
-                :movieTitle="item.title"
-                :relaseDate="item.release_date"
-            />
+            <movie-card v-for="item in state.popularMovies.results" :key="item.id" :imageUrl="item.poster_path"
+                :movieTitle="item.title" :relaseDate="item.release_date" :genre="item.genre_ids" />
         </div>
-
     </div>
 </template>
 
@@ -30,7 +24,7 @@ const getMovies = async () => {
     const { data } = await services.movies.getPopularMovie()
 
     state.popularMovies = data
-    console.log(data);
+    console.log(state.popularMovies.results);
 }
 </script>
 

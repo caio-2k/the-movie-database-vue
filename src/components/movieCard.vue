@@ -10,21 +10,24 @@
         <p class="text-gray-200 font-semibold"> {{ movieTitle }} </p>
 
         <!-- Viewers -->
-        <p class="text-sm text-gray-400 -mt-1"> {{ relaseDate }} </p>
+        <!-- <p class="text-sm text-gray-400 -mt-1"> {{ relaseDate }} </p> -->
 
         <!-- Genre Tags -->
-        <!-- <div class="flex flex-row flex-wrap gap-2">
-            <a v-for="item in genre" :key="item.id" href="#"
+        <div class="flex flex-row flex-wrap gap-2">
+            <p class="w-full text-xs text-gray-400 font-bold subpixel-antialiased">Genres:</p>
+            <a v-for="item in state.movieGenres" :key="item.id" href="#"
                 class="hover:bg-gray-600 text-gray-300 text-xs font-semibold bg-gray-700 px-2 py-1 rounded-full">
-                Shooter </a>
-        </div> -->
+                {{ item.name }} </a>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { onMounted, reactive } from 'vue';
 import fallBackImage from '../assets/images/fallback-image.png'
+import service from '../services'
 
-defineProps({
+const props = defineProps({
     imageUrl: {
         type: String,
 
@@ -50,6 +53,19 @@ defineProps({
 
     }
 })
+
+onMounted(() => {
+    getGenres()
+})
+
+const state = reactive({
+    movieGenres: [],
+})
+
+const getGenres = async () => {
+    const { data } = await service.movies.getMovieGenres()
+    state.movieGenres = data.genres.filter((item1) => props.genre.some((item2) => item1.id == item2))
+}
 </script>
 
 <style lang="scss" scoped>
