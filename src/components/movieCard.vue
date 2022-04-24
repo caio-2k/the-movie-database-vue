@@ -2,15 +2,16 @@
     <div class="flex flex-col gap-1">
         <!-- Image -->
         <a href="#" class="bg-brand-main">
-            <img :src="imageUrl ? 'https://image.tmdb.org/t/p/original' + imageUrl : fallBackImage"
+            <img :src="imageUrl ? 'https://image.tmdb.org/t/p/w400' + imageUrl : fallBackImage"
                 class="hover:translate-x-1 hover:-translate-y-1 delay-50 duration-100" />
         </a>
 
+        <!-- Images can be:
+        https://image.tmdb.org/t/p/w400 - width 400
+        https://image.tmdb.org/t/p/original - .svg and .png -->
+
         <!-- Movie Title -->
         <p class="text-gray-200 font-semibold"> {{ movieTitle }} </p>
-
-        <!-- Viewers -->
-        <!-- <p class="text-sm text-gray-400 -mt-1"> {{ relaseDate }} </p> -->
 
         <!-- Genre Tags -->
         <div class="flex flex-row flex-wrap gap-2">
@@ -40,18 +41,6 @@ const props = defineProps({
         type: [Array, Object],
 
     },
-    popularity: {
-        type: [String, Number],
-
-    },
-    relaseDate: {
-        type: String,
-
-    },
-    voteAverage: {
-        type: [Number, String],
-
-    }
 })
 
 onMounted(() => {
@@ -62,6 +51,7 @@ const state = reactive({
     movieGenres: [],
 })
 
+// TODO: Put it in a store to avoid making multiple requests
 const getGenres = async () => {
     const { data } = await service.movies.getMovieGenres()
     state.movieGenres = data.genres.filter((item1) => props.genre.some((item2) => item1.id == item2))
